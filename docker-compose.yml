@@ -1,0 +1,20 @@
+version: '3.3'
+
+services:
+  machine_learning:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: 'recommendation:multi_items'
+    container_name: 'multi_items'
+    stdin_open: true
+    tty: true
+    volumes:
+      - ./:/app
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
